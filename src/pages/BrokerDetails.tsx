@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Eye, FileText, Phone, Mail, MapPin } from 'lucide-react';
+import { Search, Eye, FileText, Phone, Mail, MapPin, Download } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/enhanced-button';
 import { Input } from '@/components/ui/input';
@@ -13,6 +13,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { exportBrokerDetails } from '@/lib/export-utils';
+import { useToast } from '@/hooks/use-toast';
 
 const brokerData = [
   {
@@ -70,6 +72,30 @@ const getScoreBadge = (score: number) => {
 };
 
 const BrokerDetails: React.FC = () => {
+  const { toast } = useToast();
+
+  const handleExport = (format: 'excel' | 'csv' | 'pdf') => {
+    try {
+      const exportFunc = exportBrokerDetails(brokerData);
+      const result = exportFunc[format]();
+      
+      if (result.success) {
+        toast({
+          title: `Export successful`,
+          description: `${format.toUpperCase()} file downloaded: ${result.filename}`,
+        });
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+      toast({
+        title: "Export failed",
+        description: `Failed to export ${format.toUpperCase()} file: ${error.message}`,
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -93,6 +119,14 @@ const BrokerDetails: React.FC = () => {
               className="pl-10 w-64 bg-background"
             />
           </div>
+          <Button variant="outline" onClick={() => handleExport('excel')}>
+            <Download className="mr-2 w-4 h-4" />
+            Export Excel
+          </Button>
+          <Button variant="outline" onClick={() => handleExport('pdf')}>
+            <FileText className="mr-2 w-4 h-4" />
+            Export PDF
+          </Button>
           <Button variant="professional">Add New Client</Button>
         </div>
       </motion.div>
@@ -171,7 +205,15 @@ const BrokerDetails: React.FC = () => {
                   <Eye className="mr-2 w-4 h-4" />
                   View Full Profile
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={() => {
+                    const singleBroker = [brokerData[0]]; // Export the featured broker
+                    const exportFunc = exportBrokerDetails(singleBroker);
+                    exportFunc.pdf();
+                  }}
+                >
                   <FileText className="mr-2 w-4 h-4" />
                   Download Report
                 </Button>

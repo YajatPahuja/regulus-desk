@@ -20,6 +20,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { exportClientReports } from '@/lib/export-utils';
+import { useToast } from '@/hooks/use-toast';
 
 const clientData = [
   {
@@ -96,6 +98,7 @@ const getViolationBadge = (violations: number) => {
 const ClientReports: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedBroker, setSelectedBroker] = useState('all');
+  const { toast } = useToast();
 
   const filteredClients = clientData.filter(client => {
     const matchesSearch = client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -104,6 +107,28 @@ const ClientReports: React.FC = () => {
     const matchesBroker = selectedBroker === 'all' || client.brokerLinked === selectedBroker;
     return matchesSearch && matchesBroker;
   });
+
+  const handleExport = (format: 'excel' | 'csv' | 'pdf') => {
+    try {
+      const exportFunc = exportClientReports(filteredClients);
+      const result = exportFunc[format]();
+      
+      if (result.success) {
+        toast({
+          title: `Export successful`,
+          description: `${format.toUpperCase()} file downloaded: ${result.filename}`,
+        });
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+      toast({
+        title: "Export failed",
+        description: `Failed to export ${format.toUpperCase()} file: ${error.message}`,
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -121,9 +146,17 @@ const ClientReports: React.FC = () => {
           </p>
         </div>
         <div className="flex space-x-3">
-          <Button variant="outline">
+          <Button variant="outline" onClick={() => handleExport('excel')}>
             <Download className="mr-2 w-4 h-4" />
-            Export Report
+            Export Excel
+          </Button>
+          <Button variant="outline" onClick={() => handleExport('csv')}>
+            <FileText className="mr-2 w-4 h-4" />
+            Export CSV
+          </Button>
+          <Button variant="outline" onClick={() => handleExport('pdf')}>
+            <FileText className="mr-2 w-4 h-4" />
+            Export PDF
           </Button>
           <Button variant="professional">
             <FileText className="mr-2 w-4 h-4" />

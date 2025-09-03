@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Search, FileText, Calendar, ChevronDown, ChevronRight } from 'lucide-react';
+import { Shield, Search, FileText, Calendar, ChevronDown, ChevronRight, Download } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/enhanced-button';
 import { Input } from '@/components/ui/input';
@@ -18,6 +18,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
+import { exportSEBIRules } from '@/lib/export-utils';
+import { useToast } from '@/hooks/use-toast';
 
 const rulesData = [
   {
@@ -141,6 +143,7 @@ const getStatusBadge = (status: string) => {
 const SEBIRules: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedRules, setExpandedRules] = useState<Set<string>>(new Set());
+  const { toast } = useToast();
 
   const filteredRules = rulesData.filter(rule => 
     rule.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -156,6 +159,28 @@ const SEBIRules: React.FC = () => {
       newExpanded.add(ruleId);
     }
     setExpandedRules(newExpanded);
+  };
+
+  const handleExport = (format: 'excel' | 'csv' | 'pdf') => {
+    try {
+      const exportFunc = exportSEBIRules(filteredRules);
+      const result = exportFunc[format]();
+      
+      if (result.success) {
+        toast({
+          title: `Export successful`,
+          description: `${format.toUpperCase()} file downloaded: ${result.filename}`,
+        });
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+      toast({
+        title: "Export failed",
+        description: `Failed to export ${format.toUpperCase()} file: ${error.message}`,
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -174,9 +199,17 @@ const SEBIRules: React.FC = () => {
           </p>
         </div>
         <div className="flex space-x-3">
-          <Button variant="outline">
+          <Button variant="outline" onClick={() => handleExport('excel')}>
+            <Download className="mr-2 w-4 h-4" />
+            Export Excel
+          </Button>
+          <Button variant="outline" onClick={() => handleExport('csv')}>
             <FileText className="mr-2 w-4 h-4" />
-            Download All
+            Export CSV
+          </Button>
+          <Button variant="outline" onClick={() => handleExport('pdf')}>
+            <FileText className="mr-2 w-4 h-4" />
+            Export PDF
           </Button>
           <Button variant="professional">
             <Shield className="mr-2 w-4 h-4" />
@@ -327,7 +360,15 @@ const SEBIRules: React.FC = () => {
                                 </div>
                               </div>
                               <div className="flex space-x-2 pt-2">
-                                <Button variant="outline" size="sm">
+                                <Button 
+                                  variant="outline" 
+                                  size="sm"
+                                  onClick={() => {
+                                    const singleRule = [rule];
+                                    const exportFunc = exportSEBIRules(singleRule);
+                                    exportFunc.pdf();
+                                  }}
+                                >
                                   <FileText className="mr-2 w-3 h-3" />
                                   Download PDF
                                 </Button>

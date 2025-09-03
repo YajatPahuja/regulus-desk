@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { AlertTriangle, X, Filter, Search, Bell, Clock, CheckCircle2 } from 'lucide-react';
+import { AlertTriangle, X, Filter, Search, Bell, Clock, CheckCircle2, Download, FileText } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/enhanced-button';
 import { Input } from '@/components/ui/input';
@@ -20,6 +20,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { exportAlerts } from '@/lib/export-utils';
+import { useToast } from '@/hooks/use-toast';
 
 const alertsData = [
   {
@@ -131,6 +133,7 @@ const Alerts: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSeverity, setSelectedSeverity] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
+  const { toast } = useToast();
 
   const filteredAlerts = alertsData.filter(alert => {
     const matchesSearch = 
@@ -153,6 +156,28 @@ const Alerts: React.FC = () => {
     console.log(`Dismissing alert: ${alertId}`);
   };
 
+  const handleExport = (format: 'excel' | 'csv' | 'pdf') => {
+    try {
+      const exportFunc = exportAlerts(filteredAlerts);
+      const result = exportFunc[format]();
+      
+      if (result.success) {
+        toast({
+          title: `Export successful`,
+          description: `${format.toUpperCase()} file downloaded: ${result.filename}`,
+        });
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+      toast({
+        title: "Export failed",
+        description: `Failed to export ${format.toUpperCase()} file: ${error.message}`,
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -169,6 +194,18 @@ const Alerts: React.FC = () => {
           </p>
         </div>
         <div className="flex space-x-3">
+          <Button variant="outline" onClick={() => handleExport('excel')}>
+            <Download className="mr-2 w-4 h-4" />
+            Export Excel
+          </Button>
+          <Button variant="outline" onClick={() => handleExport('csv')}>
+            <FileText className="mr-2 w-4 h-4" />
+            Export CSV
+          </Button>
+          <Button variant="outline" onClick={() => handleExport('pdf')}>
+            <FileText className="mr-2 w-4 h-4" />
+            Export PDF
+          </Button>
           <Button variant="outline">
             <Bell className="mr-2 w-4 h-4" />
             Settings

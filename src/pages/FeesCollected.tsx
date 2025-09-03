@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { DollarSign, TrendingUp, Download, Calendar } from 'lucide-react';
+import { DollarSign, TrendingUp, Download, Calendar, FileText } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/enhanced-button';
 import { Badge } from '@/components/ui/badge';
@@ -23,6 +23,8 @@ import {
   ResponsiveContainer,
   Cell
 } from 'recharts';
+import { exportFeesCollected } from '@/lib/export-utils';
+import { useToast } from '@/hooks/use-toast';
 
 // Monthly fees data
 const monthlyFeesData = [
@@ -61,8 +63,42 @@ const getStatusBadge = (status: string) => {
 };
 
 const FeesCollected: React.FC = () => {
+  const { toast } = useToast();
   const totalFees = brokerFeesData.reduce((sum, broker) => sum + broker.feesCollected, 0);
   const yearlyTotal = monthlyFeesData.reduce((sum, month) => sum + month.fees, 0);
+
+  const handleExport = (format: 'excel' | 'csv' | 'pdf') => {
+    try {
+      // Create fees data for export
+      const feesData = brokerFeesData.map(broker => ({
+        brokerId: broker.id,
+        brokerName: broker.name,
+        feeType: 'Regulatory Fee',
+        amount: broker.feesCollected,
+        dueDate: broker.dueDate,
+        status: broker.status,
+        collectionDate: broker.status === 'Paid' ? new Date().toISOString() : null,
+      }));
+      
+      const exportFunc = exportFeesCollected(feesData);
+      const result = exportFunc[format]();
+      
+      if (result.success) {
+        toast({
+          title: `Export successful`,
+          description: `${format.toUpperCase()} file downloaded: ${result.filename}`,
+        });
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+      toast({
+        title: "Export failed",
+        description: `Failed to export ${format.toUpperCase()} file: ${error.message}`,
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -80,9 +116,17 @@ const FeesCollected: React.FC = () => {
           </p>
         </div>
         <div className="flex space-x-3">
-          <Button variant="outline">
+          <Button variant="outline" onClick={() => handleExport('excel')}>
             <Download className="mr-2 w-4 h-4" />
-            Export Data
+            Export Excel
+          </Button>
+          <Button variant="outline" onClick={() => handleExport('csv')}>
+            <FileText className="mr-2 w-4 h-4" />
+            Export CSV
+          </Button>
+          <Button variant="outline" onClick={() => handleExport('pdf')}>
+            <FileText className="mr-2 w-4 h-4" />
+            Export PDF
           </Button>
           <Button variant="professional">
             <Calendar className="mr-2 w-4 h-4" />

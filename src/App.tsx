@@ -14,6 +14,7 @@ import Alerts from "./pages/Alerts";
 import FileSubmission from "./pages/FileSubmission";
 import UserManagement from "./pages/UserManagement";
 import Settings from "./pages/Settings";
+import Profile from "./pages/Profile";
 import DashboardLayout from "./components/layout/DashboardLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
@@ -59,6 +60,17 @@ const App = () => (
             }
           >
             <Route index element={<UserManagement />} />
+          </Route>
+          
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Profile />} />
           </Route>
           
           <Route
