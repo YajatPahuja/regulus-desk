@@ -23,7 +23,7 @@ interface SidebarProps {
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Broker Details', href: '/dashboard/brokers', icon: Building2 },
+  { name: 'Client Details', href: '/dashboard/brokers', icon: Building2 },
   { name: 'Client Reports', href: '/dashboard/clients', icon: FileText },
   { name: 'Fees Collected', href: '/dashboard/fees', icon: DollarSign },
   { name: 'SEBI Rules', href: '/dashboard/sebi-rules', icon: Shield },
@@ -36,7 +36,7 @@ const navigation = [
 const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
   return (
     <div className={cn(
-      "bg-sidebar border-r border-sidebar-border transition-all duration-300 flex flex-col",
+      "bg-sidebar border-r border-sidebar-border transition-all duration-300 flex flex-col shrink-0",
       collapsed ? "w-16" : "w-64"
     )}>
       {/* Header */}
@@ -92,7 +92,6 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
           collapsed && "justify-center"
         )}>
           <div className="w-2 h-2 bg-success rounded-full"></div>
-          {!collapsed && <span>System Status: Online</span>}
         </div>
       </div>
     </div>

@@ -17,7 +17,7 @@ import {
 const brokerData = [
   {
     id: 'ZER001',
-    name: 'Zerodha',
+    name: 'Stocks_Analysis',
     regNo: 'SEBI/123456/2020',
     activeClients: 12500000,
     complianceScore: 96.5,
@@ -26,7 +26,7 @@ const brokerData = [
   },
   {
     id: 'UPS001',
-    name: 'Upstox',
+    name: 'Ahuja_Sellers',
     regNo: 'SEBI/789012/2019',
     activeClients: 8200000,
     complianceScore: 94.2,
@@ -35,7 +35,7 @@ const brokerData = [
   },
   {
     id: 'ANG001',
-    name: 'Angel One',
+    name: 'khurana_Enterprises',
     regNo: 'SEBI/345678/2018',
     activeClients: 6800000,
     complianceScore: 92.8,
@@ -44,7 +44,7 @@ const brokerData = [
   },
   {
     id: 'GRW001',
-    name: 'Groww',
+    name: 'Aksh_Gaushala',
     regNo: 'SEBI/901234/2021',
     activeClients: 4500000,
     complianceScore: 95.1,
@@ -53,7 +53,7 @@ const brokerData = [
   },
   {
     id: 'ICI001',
-    name: 'ICICI Direct',
+    name: 'Thapar',
     regNo: 'SEBI/567890/2015',
     activeClients: 3200000,
     complianceScore: 89.4,
@@ -80,20 +80,20 @@ const BrokerDetails: React.FC = () => {
         className="flex items-center justify-between"
       >
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Broker Details</h1>
+          <h1 className="text-3xl font-bold text-foreground">Client Details</h1>
           <p className="text-muted-foreground mt-1">
-            Manage and monitor registered brokers
+            Manage and monitor registered Clients
           </p>
         </div>
         <div className="flex space-x-3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
-              placeholder="Search brokers..."
+              placeholder="Search Clients..."
               className="pl-10 w-64 bg-background"
             />
           </div>
-          <Button variant="professional">Add New Broker</Button>
+          <Button variant="professional">Add New Client</Button>
         </div>
       </motion.div>
 
@@ -105,8 +105,8 @@ const BrokerDetails: React.FC = () => {
       >
         <Card className="border-border/50 bg-gradient-subtle">
           <CardHeader>
-            <CardTitle className="text-xl font-semibold">Featured Broker Profile</CardTitle>
-            <CardDescription>Detailed view of top-performing broker</CardDescription>
+            <CardTitle className="text-xl font-semibold">Featured Client Profile</CardTitle>
+            <CardDescription>Detailed view of top-performing Client</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -114,10 +114,10 @@ const BrokerDetails: React.FC = () => {
               <div className="lg:col-span-2 space-y-4">
                 <div className="flex items-center space-x-4">
                   <div className="w-16 h-16 bg-gradient-primary rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                    Z
+                    T
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-foreground">Zerodha</h3>
+                    <h3 className="text-2xl font-bold text-foreground">Tiet</h3>
                     <p className="text-muted-foreground">Registration No: SEBI/123456/2020</p>
                     <div className="flex items-center space-x-2 mt-2">
                       {getScoreBadge(96.5)}
@@ -136,7 +136,7 @@ const BrokerDetails: React.FC = () => {
                       </div>
                       <div className="flex items-center space-x-2">
                         <Mail className="w-4 h-4" />
-                        <span>compliance@zerodha.com</span>
+                        <span>compliance@gmail.com</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <MapPin className="w-4 h-4" />
@@ -192,15 +192,15 @@ const BrokerDetails: React.FC = () => {
       >
         <Card className="border-border/50">
           <CardHeader>
-            <CardTitle className="text-xl font-semibold">All Registered Brokers</CardTitle>
-            <CardDescription>Complete list of SEBI registered brokers</CardDescription>
+            <CardTitle className="text-xl font-semibold">All Registered Clients</CardTitle>
+            <CardDescription>Complete list of SEBI registered Clients</CardDescription>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Broker ID</TableHead>
-                  <TableHead>Broker Name</TableHead>
+                  <TableHead>Client ID</TableHead>
+                  <TableHead>Client Name</TableHead>
                   <TableHead>Registration No</TableHead>
                   <TableHead>Active Clients</TableHead>
                   <TableHead>Compliance Score</TableHead>

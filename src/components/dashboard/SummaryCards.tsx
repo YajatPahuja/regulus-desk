@@ -47,7 +47,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, change, changeT
 const SummaryCards: React.FC = () => {
   const cards = [
     {
-      title: 'Active Brokers',
+      title: 'Active Clients',
       value: '248',
       change: '+12 this month',
       changeType: 'positive' as const,

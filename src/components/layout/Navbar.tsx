@@ -1,5 +1,6 @@
 import React from 'react';
-import { Bell, Search, User, LogOut, Settings } from 'lucide-react';
+import { Bell, Search, User, LogOut, Settings, Moon, Sun } from 'lucide-react';
+import { useTheme } from '@/hooks/use-theme';
 import { Button } from '@/components/ui/enhanced-button';
 import { Input } from '@/components/ui/input';
 import {
@@ -18,11 +19,12 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ onLogout }) => {
+  const { theme, toggleTheme } = useTheme();
   return (
-    <nav className="h-16 bg-card border-b border-border px-6 flex items-center justify-between shadow-sm">
+    <nav className="h-16 bg-card border-b border-border px-6 flex items-center justify-between shadow-sm min-w-0">
       {/* Left section - Search */}
-      <div className="flex items-center space-x-4 flex-1">
-        <div className="relative w-96">
+      <div className="flex items-center space-x-4 flex-1 min-w-0">
+        <div className="relative w-full max-w-md">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
           <Input
             placeholder="Search brokers, clients, reports..."
@@ -33,6 +35,10 @@ const Navbar: React.FC<NavbarProps> = ({ onLogout }) => {
 
       {/* Right section - Actions */}
       <div className="flex items-center space-x-4">
+        {/* Theme toggle */}
+        <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme">
+          {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+        </Button>
         {/* Notifications */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

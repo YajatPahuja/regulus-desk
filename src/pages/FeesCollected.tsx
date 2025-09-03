@@ -42,46 +42,7 @@ const monthlyFeesData = [
 
 // Broker-wise fees data
 const brokerFeesData = [
-  {
-    brokerName: 'Zerodha',
-    feesCollected: 2450000,
-    month: 'December 2024',
-    status: 'Paid',
-    percentage: 35.2,
-    growth: '+12.5%'
-  },
-  {
-    brokerName: 'Upstox',
-    feesCollected: 1850000,
-    month: 'December 2024', 
-    status: 'Paid',
-    percentage: 26.6,
-    growth: '+8.3%'
-  },
-  {
-    brokerName: 'Angel One',
-    feesCollected: 1320000,
-    month: 'December 2024',
-    status: 'Pending',
-    percentage: 19.0,
-    growth: '+15.7%'
-  },
-  {
-    brokerName: 'Groww',
-    feesCollected: 980000,
-    month: 'December 2024',
-    status: 'Paid',
-    percentage: 14.1,
-    growth: '+22.1%'
-  },
-  {
-    brokerName: 'ICICI Direct',
-    feesCollected: 350000,
-    month: 'December 2024',
-    status: 'Overdue',
-    percentage: 5.0,
-    growth: '-3.2%'
-  }
+
 ];
 
 const COLORS = ['hsl(var(--primary))', 'hsl(var(--secondary))', 'hsl(var(--accent))', 'hsl(var(--warning))', 'hsl(var(--success))'];
@@ -272,22 +233,9 @@ const FeesCollected: React.FC = () => {
         transition={{ duration: 0.3, delay: 0.6 }}
       >
         <Card className="border-border/50">
-          <CardHeader>
-            <CardTitle className="text-xl font-semibold">Broker-wise Fee Collection</CardTitle>
-            <CardDescription>Detailed breakdown by broker for current month</CardDescription>
-          </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>Broker Name</TableHead>
-                  <TableHead>Fees Collected (₹)</TableHead>
-                  <TableHead>Market Share</TableHead>
-                  <TableHead>Growth</TableHead>
-                  <TableHead>Month</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
               </TableHeader>
               <TableBody>
                 {brokerFeesData.map((broker, index) => (

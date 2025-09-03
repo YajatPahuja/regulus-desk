@@ -25,7 +25,7 @@ const alertsData = [
   {
     id: 'ALT001',
     type: 'Rule Violation',
-    broker: 'ICICI Direct',
+    broker: 'Rajesh',
     severity: 'Critical',
     message: 'Margin limit exceeded by 25% for client CLI003',
     date: '2024-12-01T14:30:00',
@@ -45,7 +45,7 @@ const alertsData = [
   {
     id: 'ALT003',
     type: 'Missing File Submission',
-    broker: 'Angel One',
+    broker: 'Mahesh',
     severity: 'Warning',
     message: 'Monthly compliance report overdue by 2 days',
     date: '2024-12-01T09:45:00',
@@ -55,7 +55,7 @@ const alertsData = [
   {
     id: 'ALT004',
     type: 'System Alert',
-    broker: 'Zerodha',
+    broker: 'Aksh',
     severity: 'Info',
     message: 'Unusual trading volume detected - automated review triggered',
     date: '2024-12-01T08:20:00',
@@ -65,7 +65,7 @@ const alertsData = [
   {
     id: 'ALT005',
     type: 'KYC Violation',
-    broker: 'Upstox',
+    broker: 'Akshat',
     severity: 'Warning',
     message: 'Client KYC documentation incomplete for 15 accounts',
     date: '2024-11-30T16:30:00',
@@ -75,7 +75,7 @@ const alertsData = [
   {
     id: 'ALT006',
     type: 'Audit Finding',
-    broker: 'Groww',
+    broker: 'Ahuja',
     severity: 'Warning',
     message: 'Minor discrepancy found in trade settlement records',
     date: '2024-11-30T14:10:00',
@@ -334,7 +334,7 @@ const Alerts: React.FC = () => {
                 <TableRow>
                   <TableHead>Alert ID</TableHead>
                   <TableHead>Type</TableHead>
-                  <TableHead>Broker</TableHead>
+                  <TableHead>Client</TableHead>
                   <TableHead>Message</TableHead>
                   <TableHead>Severity</TableHead>
                   <TableHead>Date</TableHead>
