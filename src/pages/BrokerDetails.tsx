@@ -46,7 +46,7 @@ const brokerData = [
   },
   {
     id: 'GRW001',
-    name: 'Aksh_Gaushala',
+    name: 'Rare Enterprises',
     regNo: 'SEBI/901234/2021',
     activeClients: 4500000,
     complianceScore: 95.1,
