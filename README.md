@@ -1,73 +1,98 @@
-# Welcome to your Lovable project
+# ComplianceHub - SEBI Monitoring System
 
-## Project info
+A professional compliance monitoring and SEBI reporting system built with modern web technologies.
 
-**URL**: https://lovable.dev/projects/580d758a-6f50-43aa-ba73-804a5b9ab6b6
+## Project Overview
 
-## How can I edit this code?
+ComplianceHub is a comprehensive dashboard system designed for monitoring SEBI compliance, managing client reports, and tracking fees collection for financial institutions.
 
-There are several ways of editing your application.
+## Features
 
-**Use Lovable**
+- **Dashboard**: Real-time compliance monitoring and analytics
+- **Client Management**: Detailed broker and client information
+- **Reports**: Comprehensive client reporting system
+- **Fees Tracking**: Monitor fees collection and performance
+- **SEBI Rules**: Compliance rule management
+- **Alerts**: Real-time compliance alerts and notifications
+- **File Submission**: Secure document upload and management
+- **User Management**: Role-based access control
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/580d758a-6f50-43aa-ba73-804a5b9ab6b6) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
+## Technologies Used
 
 This project is built with:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Vite** - Fast build tool and development server
+- **TypeScript** - Type-safe JavaScript
+- **React** - Modern UI library
+- **shadcn-ui** - Beautiful UI components
+- **Tailwind CSS** - Utility-first CSS framework
+- **Framer Motion** - Smooth animations
+- **Recharts** - Data visualization
 
-## How can I deploy this project?
+## Getting Started
 
-Simply open [Lovable](https://lovable.dev/projects/580d758a-6f50-43aa-ba73-804a5b9ab6b6) and click on Share -> Publish.
+### Prerequisites
 
-## Can I connect a custom domain to my Lovable project?
+- Node.js (v16 or higher)
+- npm or yarn
 
-Yes, you can!
+### Installation
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1. Clone the repository:
+```bash
+git clone <YOUR_GIT_URL>
+cd regulus-desk
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+4. Open your browser and navigate to `http://localhost:3000`
+
+## Development
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+### Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── dashboard/      # Dashboard-specific components
+│   ├── layout/         # Layout components (Navbar, Sidebar)
+│   └── ui/             # Base UI components
+├── pages/              # Page components
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions
+└── logo/               # Logo and favicon assets
+```
+
+## Deployment
+
+The application can be deployed to any static hosting service:
+
+1. Build the project: `npm run build`
+2. Deploy the `dist` folder to your hosting service
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+This project is proprietary software developed for SEBI compliance monitoring.
